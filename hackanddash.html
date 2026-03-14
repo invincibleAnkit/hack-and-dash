@@ -1,60 +1,261 @@
-<div id="upload" style="margin-top:18px">
-    <div class="upload-area panel" id="uarea">
-      <input id="fileInput" type="file" accept=".pdf,.doc,.docx" />
-      <p id="uploadText">Drag & drop or click to upload a resume (demo: reads text client-side)</p>
-      <small id="fileInfo"></small>
-    </div>
-    <div id="results" style="display:none;margin-top:12px">
-      <div class="dashboard-summary">
-        <div class="stat">
-          <strong id="namePreview">Candidate</strong><br><small>Top match: <span id="topMatch">Product Analyst</span></small>
-        </div>
-        <div class="stat">
-          <strong id="skillCount">0</strong><br><small>Detected skills</small>
-        </div>
-        <div class="stat">
-          <strong id="gapScore">—</strong><br><small>Average skill gap</small>
-        </div>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerAI - Resume Analyzer</title>
 
-      <div class="panel" style="margin-top:12px">
-        <h3 style="margin:0 0 8px">Top matched jobs</h3>
-        <div class="job-list" id="jobList">
-          <!-- jobs inserted here -->
-        </div>
-      </div>
+<style>
+body{
+font-family:Arial, sans-serif;
+background:#f4f6fb;
+margin:0;
+padding:0;
+}
 
-      <div class="panel" style="margin-top:12px">
-        <h3 style="margin:0 0 8px">AI Career Mentor</h3>
-        <div class="mentor" id="mentorBox">
-          <div class="mentor-msg"><strong>Mentor:</strong> I analyzed your resume and found a good fit for Product Analyst roles. Would you like a 4-week learning plan to improve SQL and A/B testing skills?</div>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <input id="mentorInput" placeholder="Ask the mentor..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6eefc" />
-          <button class="btn" onclick="sendToMentor()">Ask</button>
-        </div>
-      </div>
-    </div>
-  </div>
+header{
+background:#4a6cf7;
+color:white;
+padding:20px;
+text-align:center;
+}
 
-</section>
+.container{
+display:flex;
+gap:20px;
+padding:20px;
+}
+
+.panel{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+.upload-area{
+border:2px dashed #4a6cf7;
+padding:30px;
+text-align:center;
+cursor:pointer;
+}
+
+.dashboard-summary{
+display:flex;
+gap:15px;
+margin-top:10px;
+}
+
+.stat{
+background:#eef2ff;
+padding:10px;
+border-radius:8px;
+text-align:center;
+flex:1;
+}
+
+.job{
+padding:8px;
+border-bottom:1px solid #eee;
+}
+
+.mentor{
+height:150px;
+overflow-y:auto;
+background:#fafafa;
+padding:10px;
+border-radius:8px;
+}
+
+.mentor-msg{
+margin-bottom:8px;
+}
+
+.btn{
+background:#4a6cf7;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+aside{
+width:30%;
+}
+
+main{
+width:70%;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>CareerAI</h1>
+<p>AI Resume Analyzer & Career Mentor</p>
+</header>
+
+<div class="container">
+
+<main>
+
+<div class="panel">
+
+<h2>Upload Resume</h2>
+
+<div class="upload-area" onclick="document.getElementById('fileInput').click()">
+<input id="fileInput" type="file" accept=".pdf,.doc,.docx" style="display:none">
+<p id="uploadText">Click to upload your resume</p>
+<small id="fileInfo"></small>
+</div>
+
+<div id="results" style="display:none;margin-top:20px">
+
+<div class="dashboard-summary">
+
+<div class="stat">
+<strong id="namePreview">Candidate</strong><br>
+<small>Top match: <span id="topMatch">Data Analyst</span></small>
+</div>
+
+<div class="stat">
+<strong id="skillCount">0</strong><br>
+<small>Detected Skills</small>
+</div>
+
+<div class="stat">
+<strong id="gapScore">Medium</strong><br>
+<small>Skill Gap</small>
+</div>
+
+</div>
+
+<div class="panel" style="margin-top:15px">
+
+<h3>Top Job Matches</h3>
+
+<div id="jobList">
+
+<div class="job">Data Analyst — 88% match</div>
+<div class="job">Product Analyst — 82% match</div>
+<div class="job">Business Analyst — 75% match</div>
+
+</div>
+
+</div>
+
+<div class="panel" style="margin-top:15px">
+
+<h3>AI Career Mentor</h3>
+
+<div class="mentor" id="mentorBox">
+
+<div class="mentor-msg">
+<strong>Mentor:</strong>
+Based on your resume, Data Analyst roles suit you.  
+Improve SQL and Python for better opportunities.
+</div>
+
+</div>
+
+<div style="display:flex;gap:8px;margin-top:10px">
+
+<input id="mentorInput" placeholder="Ask the mentor..." style="flex:1;padding:8px">
+
+<button class="btn" onclick="sendToMentor()">Ask</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
 
 <aside>
-  <div class="panel">
-    <h3 style="margin-top:0">Why CareerAI</h3>
-    <ul style="padding-left:18px;color:var(--muted);margin:8px 0">
-      <li>Fast resume parsing with actionable suggestions</li>
-      <li>Semantic job matching — find roles you’ll actually qualify for</li>
-      <li>AI coach that creates a learning roadmap and mock interviews</li>
-    </ul>
 
-    <div style="margin-top:12px">
-      <h4 style="margin:0 0 8px">Demo features</h4>
-      <div class="features" id="features">
-        <div class="feature"><strong>Resume Analyzer</strong><div style="font-size:13px">Extracts skills & experience</div></div>
-        <div class="feature"><strong>Job Matches</strong><div style="font-size:13px">Ranked by fit</div></div>
-        <div class="feature"><strong>Skill Gaps</strong><div style="font-size:13px">Clear next steps</div></div>
-      </div>
-    </div>
-  </div>
+<div class="panel">
+
+<h3>Why CareerAI</h3>
+
+<ul>
+
+<li>Fast resume skill detection</li>
+<li>AI job matching</li>
+<li>Skill gap analysis</li>
+<li>Career mentor guidance</li>
+
+</ul>
+
+<h4>Features</h4>
+
+<ul>
+
+<li>Resume Analyzer</li>
+<li>Job Matching</li>
+<li>Skill Suggestions</li>
+<li>Career AI Mentor</li>
+
+</ul>
+
+</div>
+
 </aside>
+
+</div>
+
+<script>
+
+document.getElementById("fileInput").addEventListener("change",function(){
+
+let file=this.files[0];
+
+document.getElementById("fileInfo").innerText="Uploaded: "+file.name;
+
+document.getElementById("results").style.display="block";
+
+document.getElementById("skillCount").innerText=5;
+
+document.getElementById("namePreview").innerText="Candidate";
+
+});
+
+function sendToMentor(){
+
+let input=document.getElementById("mentorInput").value;
+
+if(input==="") return;
+
+let box=document.getElementById("mentorBox");
+
+let msg=document.createElement("div");
+
+msg.className="mentor-msg";
+
+msg.innerHTML="<strong>You:</strong> "+input;
+
+box.appendChild(msg);
+
+let reply=document.createElement("div");
+
+reply.className="mentor-msg";
+
+reply.innerHTML="<strong>Mentor:</strong> Focus on SQL, Python and build 2 projects to increase job match.";
+
+box.appendChild(reply);
+
+document.getElementById("mentorInput").value="";
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+</script>
+
+</body>
+</html>
