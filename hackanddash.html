@@ -1,0 +1,60 @@
+<div id="upload" style="margin-top:18px">
+    <div class="upload-area panel" id="uarea">
+      <input id="fileInput" type="file" accept=".pdf,.doc,.docx" />
+      <p id="uploadText">Drag & drop or click to upload a resume (demo: reads text client-side)</p>
+      <small id="fileInfo"></small>
+    </div>
+    <div id="results" style="display:none;margin-top:12px">
+      <div class="dashboard-summary">
+        <div class="stat">
+          <strong id="namePreview">Candidate</strong><br><small>Top match: <span id="topMatch">Product Analyst</span></small>
+        </div>
+        <div class="stat">
+          <strong id="skillCount">0</strong><br><small>Detected skills</small>
+        </div>
+        <div class="stat">
+          <strong id="gapScore">—</strong><br><small>Average skill gap</small>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">Top matched jobs</h3>
+        <div class="job-list" id="jobList">
+          <!-- jobs inserted here -->
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">AI Career Mentor</h3>
+        <div class="mentor" id="mentorBox">
+          <div class="mentor-msg"><strong>Mentor:</strong> I analyzed your resume and found a good fit for Product Analyst roles. Would you like a 4-week learning plan to improve SQL and A/B testing skills?</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input id="mentorInput" placeholder="Ask the mentor..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6eefc" />
+          <button class="btn" onclick="sendToMentor()">Ask</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<aside>
+  <div class="panel">
+    <h3 style="margin-top:0">Why CareerAI</h3>
+    <ul style="padding-left:18px;color:var(--muted);margin:8px 0">
+      <li>Fast resume parsing with actionable suggestions</li>
+      <li>Semantic job matching — find roles you’ll actually qualify for</li>
+      <li>AI coach that creates a learning roadmap and mock interviews</li>
+    </ul>
+
+    <div style="margin-top:12px">
+      <h4 style="margin:0 0 8px">Demo features</h4>
+      <div class="features" id="features">
+        <div class="feature"><strong>Resume Analyzer</strong><div style="font-size:13px">Extracts skills & experience</div></div>
+        <div class="feature"><strong>Job Matches</strong><div style="font-size:13px">Ranked by fit</div></div>
+        <div class="feature"><strong>Skill Gaps</strong><div style="font-size:13px">Clear next steps</div></div>
+      </div>
+    </div>
+  </div>
+</aside>
